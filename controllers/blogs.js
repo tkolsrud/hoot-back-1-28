@@ -40,8 +40,22 @@ const show = async (req, res) => {
   }
 }
 
+const update = async (req, res) => {
+  try {
+    const blog = await Blog.findByIdAndUpdate(
+      req.params.id, 
+      req.body,
+      { new: true }
+    ).populate('author')
+    res.status(200).json(blog)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
 export {
   create,
   index,
   show,
+  update
 }
